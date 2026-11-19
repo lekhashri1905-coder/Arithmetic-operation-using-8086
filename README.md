@@ -1,233 +1,72 @@
-# MICROPROCESSOR AND MICROCONTROLLER
-# Arithmetic-operation-using-8086
-# 8086 Assembly Language Programs for Arithmetic Operations
+# FACTORIAL-OF-A-NUMBER
+# FACTORIAL OF A NUMBER USING 8051 (Keil)
 
 ## AIM
-
-To write and execute Assembly Language Programs to perform arithmetic operations for the 8086 microprocessor.
+To write and execute an Assembly language program to perform the factorial of a number using 8051 Keil.
 
 ---
 
 ## APPARATUS REQUIRED
-
-* Personal Computer with MASM Software
-
----
-
-## 1. ADDITION
-
-#### Algorithm
-
-1. Initialize memory location in HL register.
-2. Store 1st data.
-3. Increment HL to enter 2nd data.
-4. Move 2nd number to accumulator.
-5. Decrement HL.
-6. Add value in memory with accumulator.
-7. Store result.
-8. Stop.
-
-
-## FLOW CHART
-<img width="707" height="1024" alt="image" src="https://github.com/user-attachments/assets/b5a7062d-e294-47cd-9683-a40de25e82de" />
-
-
-#### Program
-
-```asm
-CODE SEGMENT
-ASSUME CS:CODE, DS:CODE
-ORG 1000H
-MOV CL,00H
-MOV AX,1234H
-MOV BX,1234H
-ADD AX,BX
-JNC L1
-INC CL
-L1:MOV SI,1200H
-MOV [SI],AX
-MOV [SI+2],CL
-MOV AH,4CH
-INT 21H
-CODE ENDS
-END
-```
-
-#### Output Table
-
-| MEMORY LOCATION (INPUT) | MEMORY LOCATION (OUTPUT) |
-| ----------------------- | ------------------------ |
-|       1200🔢       01         12
-
-|         1200                    |
-
-#### Manual Calculations
-
-<img width="900" height="1600" alt="image" src="https://github.com/user-attachments/assets/7d6dcec3-7906-4b97-b2f7-1fc0b5677c3e" />
-
+- Personal computer with Keil software
 
 ---
 
-## OUTPUT IMAGE FROM MASM SOFTWARE
-<img width="641" height="423" alt="image" src="https://github.com/user-attachments/assets/92622b4b-228e-44fb-96f6-e99307bdcab9" />
+## ALGORITHM
+1. **Start**
+2. **Input**: Read the number `n`.
+3. **Initialize**:
+   - Set factorial to `1`.
+   - Set `i` to `1`.
+4. **Loop**: While `i` is less than or equal to `n`:
+   - Multiply factorial by `i`.
+   - Increment `i` by `1`.
+5. **Output**: Store or print the value of factorial.
+6. **End**
 
-
-## 2. SUBTRACTION
-
-#### Algorithm
-
-1. Initialize memory and store 1st data.
-2. Increment to get 2nd data.
-3. Move 2nd data to accumulator.
-4. Subtract memory content.
-5. Store result.
+---
 
 ## FLOWCHART
-
-<img width="578" height="797" alt="image" src="https://github.com/user-attachments/assets/564c3c7a-33ce-4a1c-8920-beb5c24b9b47" />
-
-
-#### Program
-```asm
-CODE SEGMENT
-ASSUME CS: CODE, DS: CODE
-ORG 1000H
-MOV SI,2000H
-MOV CL,00H
-MOV AX,[SI]
-MOV BX,[SI+02H]
-SUB AX,BX
-JNC L1
-INC CL
-L1:
-MOV [SI+04H],AX
-MOV [SI+06H],CL
-MOV AH,4CH
-INT 21H
-CODE ENDS
-END
-```
-
-
-#### Output Table
-
-| MEMORY LOCATION (INPUT) | MEMORY LOCATION (OUTPUT) |
-| ----------------------- | ------------------------ |
-|                         |                          |
-
-#### Manual Calculations
-
-<img width="900" height="1600" alt="image" src="https://github.com/user-attachments/assets/6ffbf714-325b-41be-b0f6-5cbdd342b8c3" />
+<img width="506" height="525" alt="image" src="https://github.com/user-attachments/assets/f3b47187-6f0f-490c-8704-f2973cb2b276" />
 
 
 ---
 
-
-## OUTPUT SCREEN FROM MASM SOFTWARE
-<img width="636" height="431" alt="image" src="https://github.com/user-attachments/assets/164ad53c-8661-4e6d-a469-c3a15f0ec112" />
-
-
-## 3. MULTIPLICATION
-
-#### Algorithm
-
-1. Initialize memory and store operands.
-2. Move operands to registers.
-3. Multiply.
-4. Store result.
-
-##FLOWCHART
-
-<img width="569" height="906" alt="image" src="https://github.com/user-attachments/assets/88be88ff-2896-4a88-b73d-84ccffd2fcf9" />
-
-
-
-#### Program
-
+## PROGRAM
 ```asm
-CODE SEGMENT
-ASSUME CS: CODE, DS: CODE
-ORG 1000H
-MOV SI,2000H
-MOV DX,0000H
-MOV AX,[SI]
-MOV BX,[SI+02H]
-MUL BX
-MOV [SI+04H],AX
-MOV [SI+06H],DX
-MOV AH,4CH
-INT 21H
-CODE ENDS
+ORG 0000H
+MOV DPTR,#4500H
+MOVX A,@DPTR
+MOV R0,A
+INC DPTR
+ACALL FACTORIAL
+MOVX @DPTR,A
+SJMP THIN
+FACTORIAL:DEC R0
+CJNE R0,#01H,PRODUCT
+SJMP THICK
+PRODUCT:MOV B,R0
+MUL AB
+ACALL FACTORIAL
+THICK: RET
+THIN:RET
 END
+
 ```
+OUTPUT
 
-#### Output Table
-
-| MEMORY LOCATION (INPUT) | MEMORY LOCATION (OUTPUT) |
-| ----------------------- | ------------------------ |
-|                         |                          |
-
-#### Manual Calculations
-
-<img width="1600" height="1204" alt="image" src="https://github.com/user-attachments/assets/fc0667a4-87bd-495d-9a47-8343ab562bf6" />
+<img width="1600" height="849" alt="WhatsApp Image 2026-10-23 at 8 15 11 AM" src="https://github.com/user-attachments/assets/9495233f-5503-4830-bdd6-0e781a4cf5dd" />
 
 
 ---
-
-## OUTPUT SCREEN FROM MASM SOFTWARE
-<img width="642" height="435" alt="image" src="https://github.com/user-attachments/assets/3b10b0ab-bc98-4265-9b2a-742244f550f0" />
-
-
-## 4. DIVISION
-
-#### Algorithm
-
-1. Load memory location of operands.
-2. Perform division.
-3. Store result.
-
-   ## FLOWCHART
-<img width="1065" height="802" alt="image" src="https://github.com/user-attachments/assets/25b4a483-0d42-494b-8639-1af3ea17191b" />
-
-
-#### Program
-
-```asm
-CODE SEGMENT
-ASSUME CS: CODE, DS: CODE
-ORG 1000H
-MOV SI,2000H
-MOV DX,0000H
-MOV AX,[SI]
-MOV BX,[SI+02H]
-DIV BX
-MOV [SI+04H],AX
-MOV [SI+06H],DX
-MOV AH,4CH
-INT 21H
-CODE ENDS
-END
-```
-
-#### Output Table
-
-| MEMORY LOCATION (INPUT) | MEMORY LOCATION (OUTPUT) |
-| ----------------------- | ------------------------ |
-|                         |                          |
-
-#### Manual Calculations
-
-<img width="635" height="427" alt="image" src="https://github.com/user-attachments/assets/347006f9-1393-4178-9c55-8d85b6fbdf04" />
-
+MANUAL CALCULATIONS
+<img width="1548" height="1247" alt="image" src="https://github.com/user-attachments/assets/db180cc6-24c9-47fa-b723-b1c8d86ec982" />
 
 ---
-## OUTPUT FROM MASM SOFTWARE
-<img width="1551" height="1600" alt="image" src="https://github.com/user-attachments/assets/4c36a06b-ef53-4b09-a96b-657111301235" />
 
+RESULT
 
+Thus, the factorial of a number was calculated and executed successfully using 8051 Keil.
 
+---
 
-## RESULT
-
-Thus, the Assembly Language Programs for 8086 to perform arithmetic operations (Addition, Subtraction, Multiplication, and Division) using both direct and indirect methods were successfully written and executed using MASM.
 
